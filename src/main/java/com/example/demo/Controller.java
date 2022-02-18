@@ -10,11 +10,11 @@ public class Controller {
     private List<Customer> customers;
 
     public Controller() {
-        this.customers = init();
+        this.customers = initCustomer();
 
     }
 
-    private List<Customer> init() {
+    private List<Customer> initCustomer() {
         List<Customer> customers = new ArrayList<>();
         Customer customer1 = new Customer();
         customer1.setId(0L);
