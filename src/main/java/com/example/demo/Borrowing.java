@@ -8,11 +8,11 @@ public class Borrowing {
     private String customerName;
     private String authorName;
     private String title;
-
+/*
     public void setBorrowingId(int borrowingId) {
         this.borrowingId = borrowingId;
     }
-
+*/
     public int getBorrowingId() {
         return borrowingId;
     }
