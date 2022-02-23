@@ -7,9 +7,8 @@ import java.util.List;
 
 @RestController
 public class CustomerController {
-    /*CUSTOMER*/
-    private List<Customer> customers;
 
+    private List<Customer> customers;
     private CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {

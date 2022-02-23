@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
 public class BookController {
 
     private List<Book> books;
+    private BookService bookService;
 
-    public BookController() {
-        this.books = initBook();
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     private List<Book> initBook() {
@@ -38,45 +40,25 @@ public class BookController {
 
     @GetMapping("/api/books/{bookId}")
     public Book getBook(@PathVariable Integer bookId){
-        return this.books.get(bookId);
+        return bookService.getBook(bookId);
     }
 
-    @GetMapping("/api/books")
-    public List<Book> getBooks(@RequestParam(required = false) String bookTitle){
-
-        List<Book> filteredBooks = new ArrayList<>();
-        for (Book book : books){
-            if (book.gettitle().equals(bookTitle)){
-                filteredBooks.add(book);
-            }
-        }
-        System.out.println(bookTitle);
-        if(bookTitle==null){
-            return this.books;
-        }
-        return filteredBooks;
-
+    @GetMapping("/api/customers")
+    public List<Book> getBooks(@RequestParam(required = false) String autorName){
+        return bookService.getBooks(autorName);
     }
-
     @PostMapping("/api/books")
     public Integer addBook(@RequestBody Book book){
-        this.books.add(book);
-        this.books.get(books.size()-1).setId(Long.valueOf(books.size()-1));
-        return this.books.size()-1;
+        return bookService.addBook(book);
     }
 
     @DeleteMapping("/api/books/{bookId}")
     public void deleteBook(@PathVariable Integer bookId){
-        this.books.remove(this.books.get(bookId));
+        bookService.deleteBook(bookId);
     }
 
-    @PutMapping("/api/customers/{customerId}")
-    public void updateBook(@PathVariable Integer bookId, @RequestBody Book book){
-        this.books.get(bookId).setId(Long.valueOf(bookId));
-        this.books.get(bookId).setauthorFirstname(book.getauthorFirstname());
-        this.books.get(bookId).setauthorLastname(book.getauthorLastname());
-        this.books.get(bookId).settitle(book.gettitle());
-        this.books.get(bookId).setisbn(book.getisbn());
-        this.books.get(bookId).setcount(book.getcount());
+    @PutMapping("/api/books/{bookId}")
+    public void updateBook(@PathVariable int bookId, @RequestBody Book book){
+        bookService.updateBook(bookId, book);
     }
 }
