@@ -1,5 +1,7 @@
 package com.example.demo;
+
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +62,12 @@ public class CustomerService {
 
     public Integer createCustomer(Customer customer){
         this.customers.add(customer);
-            this.customers.get(customers.size()-1).setId((long) (customers.size() - 1));
+        this.customers.get(customers.size()-1).setId((long) (customers.size() - 1));
         return this.customers.size()-1;
     }
+
+
+
+
+
 }
