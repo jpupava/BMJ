@@ -43,7 +43,7 @@ public class BookController {
         return bookService.getBook(bookId);
     }
 
-    @GetMapping("/api/customers")
+    @GetMapping("/api/books")
     public List<Book> getBooks(@RequestParam(required = false) String autorName){
         return bookService.getBooks(autorName);
     }
