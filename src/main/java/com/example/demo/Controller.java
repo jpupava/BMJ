@@ -10,9 +10,11 @@ public class Controller {
     /*CUSTOMER*/
     private List<Customer> customers;
 
-    public Controller() {
-        this.customers = initCustomer();
-        this.books = initBook();
+    private CustomerService customerService;
+
+    public Controller(CustomerService customerService) {
+        this.customerService = customerService;
+        //this.books = initBook();
     }
 
     private List<Customer> initCustomer() {
@@ -36,46 +38,31 @@ public class Controller {
 
     @GetMapping("/api/customers/{customerId}")
     public Customer getCustomer(@PathVariable Integer customerId){
-        return this.customers.get(customerId);
+        return customerService.getCustomer(customerId);
     }
 
     @GetMapping("/api/customers")
     public List<Customer> getCustomers(@RequestParam(required = false) String customerName){
-
-        List<Customer> filteredCustomers = new ArrayList<>();
-        for (Customer customer : customers){
-            if (customer.getLastName().equals(customerName)){
-                filteredCustomers.add(customer);
-            }
-        }
-        System.out.println(customerName);
-        if(customerName==null){
-            return this.customers;
-        }
-        return filteredCustomers;
-
+        return customerService.getCustomers(customerName);
     }
 
     @PostMapping("/api/customers")
     public Integer createCustomer(@RequestBody Customer customer){
-        this.customers.add(customer);
-        this.customers.get(customers.size()-1).setId(Long.valueOf(customers.size()-1));
-        return this.customers.size()-1;
+        return customerService.createCustomer(customer);
     }
 
     @DeleteMapping("/api/customers/{customerId}")
     public void deleteCustomer(@PathVariable Integer customerId){
-        this.customers.remove(this.customers.get(customerId));
+        customerService.deleteCustomer(customerId);
     }
 
     @PutMapping("/api/customers/{customerId}")
-    public void updateCustomer(@PathVariable Integer customerId, @RequestBody Customer customer){
-        this.customers.get(customerId).setId(Long.valueOf(customerId));
-        this.customers.get(customerId).setFirstName(customer.getFirstName());
-        this.customers.get(customerId).setLastName(customer.getLastName());
-        this.customers.get(customerId).setEmail(customer.getEmail());
+    public void updateCustomer(@PathVariable int customerId, @RequestBody Customer customer){
+        customerService.updateCustomer(customerId, customer);
     }
+
     /*BOOK*/
+    /*
     private List<Book> books;
 
     private List<Book> initBook() {
@@ -144,4 +131,6 @@ public class Controller {
         this.books.get(bookId).setisbn(book.getisbn());
         this.books.get(bookId).setcount(book.getcount());
     }
+
+     */
 }
