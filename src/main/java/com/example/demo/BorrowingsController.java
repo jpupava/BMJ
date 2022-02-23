@@ -26,14 +26,14 @@ public class BorrowingsController {
         borrowing1.setAuthorName("J. R. R. Tolkien");
         borrowings.add(borrowing1);
 
-       /* Borrowing borrowing2 = new Borrowing();
+        Borrowing borrowing2 = new Borrowing();
         borrowing2.setBorrowingId(1);
         borrowing2.setCustomerId(14);
         borrowing2.setCustomerName("Karol Bezdeda");
         borrowing2.setBookId(12);
         borrowing2.setTitle("O ciernej diere");
         borrowing2.setAuthorName("Steven Hawking");
-        borrowings.add(borrowing2);*/
+        borrowings.add(borrowing2);
 
         return borrowings;
     }
