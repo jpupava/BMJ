@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class Controller {
+public class CustomerController {
     /*CUSTOMER*/
     private List<Customer> customers;
 
     private CustomerService customerService;
 
-    public Controller(CustomerService customerService) {
+    public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
