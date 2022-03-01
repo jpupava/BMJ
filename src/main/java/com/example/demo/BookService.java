@@ -23,7 +23,7 @@ public class BookService {
         books.add(book1);
 
         Book book2 = new Book();
-        book2.setId(0L);
+        book2.setId(1L);
         book2.setauthorFirstname("Matko");
         book2.setauthorLastname("Usko");
         book2.settitle("matko-usko");
