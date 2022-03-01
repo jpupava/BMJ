@@ -59,7 +59,7 @@ public class BookService {
     }
 
     public void updateBook(int bookId, Book book){
-        this.books.get(bookId).setId(Long.valueOf(bookId));
+        this.books.get(bookId).setId((long) bookId);
         this.books.get(bookId).setauthorFirstname(book.getauthorFirstname());
         this.books.get(bookId).setauthorLastname(book.getauthorLastname());
         this.books.get(bookId).settitle(book.gettitle());
@@ -69,7 +69,7 @@ public class BookService {
 
     public Integer addBook(Book book){
         this.books.add(book);
-        this.books.get(books.size()-1).setId(Long.valueOf(books.size()-1));
+        this.books.get(books.size()-1).setId((long) (books.size() - 1));
         return this.books.size()-1;
     }
 }
