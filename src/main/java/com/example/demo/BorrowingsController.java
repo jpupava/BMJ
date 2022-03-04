@@ -11,6 +11,8 @@ public class BorrowingsController {
     private List<Borrowing> borrowings;
 
     private BorrowingService borrowingService;
+    private CustomerService customerService;
+    private BookService bookService;
 
     public BorrowingsController(BorrowingService borrowingService) {
         this.borrowingService = borrowingService;
@@ -21,20 +23,29 @@ public class BorrowingsController {
 
         Borrowing borrowing1 = new Borrowing();
         borrowing1.setBorrowingId(0);
+        borrowing1.setBorrower(customerService.getCustomer(0));
+        borrowing1.setBorrowedBook(bookService.getBook(0));
+
+        /*
         borrowing1.setCustomerId(5);
         borrowing1.setCustomerName("Janko Mrkvicka");
         borrowing1.setBookId(3);
         borrowing1.setTitle("Hobbit");
         borrowing1.setAuthorName("J. R. R. Tolkien");
+         */
         borrowings.add(borrowing1);
 
         Borrowing borrowing2 = new Borrowing();
         borrowing2.setBorrowingId(1);
+        borrowing2.setBorrower(customerService.getCustomer(1));
+        borrowing2.setBorrowedBook(bookService.getBook(1));
+        /*
         borrowing2.setCustomerId(14);
         borrowing2.setCustomerName("Karol Bezdeda");
         borrowing2.setBookId(12);
         borrowing2.setTitle("O ciernej diere");
         borrowing2.setAuthorName("Steven Hawking");
+         */
         borrowings.add(borrowing2);
 
         return borrowings;
@@ -46,8 +57,8 @@ public class BorrowingsController {
     }
 
     @GetMapping("/api/borrowings")
-    public List<Borrowing> getBorrowings(@RequestParam(required = false) String customerName){
-        return borrowingService.getBorrowings(customerName);
+    public List<Borrowing> getBorrowings(@RequestParam(required = false) Customer borrower){
+        return borrowingService.getBorrowings(borrower);
 
     }
 
