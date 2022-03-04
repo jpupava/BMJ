@@ -10,8 +10,10 @@ public class BorrowingsController {
 
     private List<Borrowing> borrowings;
 
-    public BorrowingsController() {
-        this.borrowings = initBorrowing();
+    private BorrowingService borrowingService;
+
+    public BorrowingsController(BorrowingService borrowingService) {
+        this.borrowingService = borrowingService;
     }
 
     private List<Borrowing> initBorrowing() {
@@ -40,49 +42,28 @@ public class BorrowingsController {
 
     @GetMapping("/api/borrowings/{borrowingId}")
     public Borrowing getBorrowing(@PathVariable Integer borrowingId){
-        System.out.println(borrowingId);
-        return this.borrowings.get(borrowingId);
+        return borrowingService.getBorrowing(borrowingId);
     }
 
     @GetMapping("/api/borrowings")
     public List<Borrowing> getBorrowings(@RequestParam(required = false) String customerName){
-
-        List<Borrowing> filteredBorrowings = new ArrayList<>();
-        for (Borrowing borrowing : borrowings){
-            if (borrowing.getCustomerName().equals(customerName)){
-                filteredBorrowings.add(borrowing);
-            }
-        }
-
-        if(customerName==null){
-            return this.borrowings;
-        }
-        return filteredBorrowings;
+        return borrowingService.getBorrowings(customerName);
 
     }
 
     @PostMapping("/api/borrowings")
     public Integer createBorrowing(@RequestBody Borrowing borrowing){
-
-        this.borrowings.add(borrowing);
-        this.borrowings.get(borrowings.size()-1).setBorrowingId(borrowings.size()-1);
-        return this.borrowings.size()-1;
+        return borrowingService.createBorrowing(borrowing);
     }
 
     @DeleteMapping("/api/borrowings/{borrowingId}")
     public void deleteBorrowing(@PathVariable Integer borrowingId){
-
-        this.borrowings.remove(this.borrowings.get(borrowingId));
+        borrowingService.deleteBorrowing(borrowingId);
     }
 
     @PutMapping("/api/borrowings/{borrowingId}")
     public void updateBorrowing(@PathVariable int borrowingId, @RequestBody Borrowing borrowing) {
-        this.borrowings.get(borrowingId).setBorrowingId(borrowingId);
-        this.borrowings.get(borrowingId).setCustomerId(borrowing.getCustomerId());
-        this.borrowings.get(borrowingId).setCustomerName(borrowing.getCustomerName());
-        this.borrowings.get(borrowingId).setBookId(borrowing.getBookId());
-        this.borrowings.get(borrowingId).setAuthorName(borrowing.getAuthorName());
-        this.borrowings.get(borrowingId).setTitle(borrowing.getTitle());
+        borrowingService.updateBorrowing(borrowingId, borrowing);
     }
 
 }
