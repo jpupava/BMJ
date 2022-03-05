@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class BookController {
+public class BookController{
 
     private List<Book> books;
-    private BookService bookService;
+    public BookService bookService;
 
     public BookController(BookService bookService) {
         this.bookService = bookService;

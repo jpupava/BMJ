@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CustomerService {
+public class CustomerService{
     private List<Customer> customers;
 
     public CustomerService(){

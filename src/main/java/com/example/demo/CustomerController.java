@@ -9,11 +9,10 @@ import java.util.List;
 public class CustomerController {
     private List<Customer> customers;
 
-    private CustomerService customerService;
+    public CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
-        //this.books = initBook();
     }
 
     private List<Customer> initCustomer() {

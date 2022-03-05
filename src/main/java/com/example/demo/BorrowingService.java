@@ -10,8 +10,9 @@ import java.util.List;
 public class BorrowingService {
 
     private List<Borrowing> borrowings;
-    private CustomerService customerService;
-    private BookService bookService;
+    CustomerService customerService;
+    BookService bookService;
+
 
     public BorrowingService() {
         this.borrowings = initBorrowing();
