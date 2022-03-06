@@ -103,8 +103,8 @@ public class CustomerService {
     }
 
     @Transactional
-    public CustomerDto getCustomer(int customerId){
-        Optional<CustomerEntity> byId = customerRepository.findById((long) customerId);
+    public CustomerDto getCustomer(Long customerId){
+        Optional<CustomerEntity> byId = customerRepository.findById(customerId);
         if (byId.isPresent()){
             return mapToCustomerDto(byId.get());
         }

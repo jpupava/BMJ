@@ -2,7 +2,7 @@ package com.example.demo;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
@@ -40,7 +40,7 @@ public class CustomerController {
      */
 
     @GetMapping("/api/customers/{customerId}")
-    public CustomerDto getCustomer(@PathVariable Integer customerId){
+    public CustomerDto getCustomer(@PathVariable Long customerId){
         return customerService.getCustomer(customerId);
     }
 
