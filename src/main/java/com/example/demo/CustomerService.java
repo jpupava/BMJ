@@ -2,68 +2,136 @@ package com.example.demo;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
-    private List<Customer> customers;
 
-    public CustomerService(){
-        this.customers = initCustomer();
+    /*
+    private List<CustomerDto> customerDtos;
+    */
+
+    private final CustomerRepository customerRepository;
+
+    public CustomerService(CustomerRepository customerRepository){
+        this.customerRepository = customerRepository;
     }
 
-    private List<Customer> initCustomer() {
-        List<Customer> customers = new ArrayList<>();
-        Customer customer1 = new Customer();
-        customer1.setId(0L);
-        customer1.setFirstName("Janko");
-        customer1.setLastName("Hraško");
-        customer1.setEmail("jankohrasko@gmail.com");
-        customers.add(customer1);
+    private static CustomerDto mapToCustomerDto(CustomerEntity customerEntity){
+        CustomerDto customerDto = new CustomerDto();
 
-        Customer customer2 = new Customer();
-        customer2.setId(1L);
-        customer2.setFirstName("Jožko");
-        customer2.setLastName("Mrkvička");
-        customer2.setEmail("jozkomrkvicka@gmail.com");
-        customers.add(customer2);
+        customerDto.setFirstName(customerEntity.getFirstName());
+        customerDto.setLastName(customerEntity.getLastName());
+        customerDto.setEmail(customerEntity.getEmail());
 
-        return customers;
+        return customerDto;
+    }
+    /*
+    private List<CustomerDto> initCustomer() {
+        List<CustomerDto> customerDtos = new ArrayList<>();
+        CustomerDto customerDto1 = new CustomerDto();
+        customerDto1.setId(0L);
+        customerDto1.setFirstName("Janko");
+        customerDto1.setLastName("Hraško");
+        customerDto1.setEmail("jankohrasko@gmail.com");
+        customerDtos.add(customerDto1);
+
+        CustomerDto customerDto2 = new CustomerDto();
+        customerDto2.setId(1L);
+        customerDto2.setFirstName("Jožko");
+        customerDto2.setLastName("Mrkvička");
+        customerDto2.setEmail("jozkomrkvicka@gmail.com");
+        customerDtos.add(customerDto2);
+
+        return customerDtos;
     }
 
-    public List<Customer> getCustomers(String customerName){
-        if(customerName==null){
-            return this.customers;
+     */
+    @Transactional
+    public List<CustomerDto> getCustomers(String customerName){
+        List<CustomerDto> ret = new LinkedList<>();
+        for (CustomerEntity c1 : customerRepository.findAll()){
+            CustomerDto c2 = mapToCustomerDto(c1);
+            ret.add(c2);
         }
-        List<Customer> filteredCustomers = new ArrayList<>();
-        for (Customer customer : customers){
-            if (customer.getLastName().equals(customerName)){
-                filteredCustomers.add(customer);
+        return ret;
+        /*
+        if(customerName==null){
+            return this.customerDtos;
+        }
+        List<CustomerDto> filteredCustomerDtos = new ArrayList<>();
+        for (CustomerDto customerDto : customerDtos){
+            if (customerDto.getLastName().equals(customerName)){
+                filteredCustomerDtos.add(customerDto);
             }
         }
-        return filteredCustomers;
+        return filteredCustomerDtos;
+        */
     }
-
+    @Transactional
     public void deleteCustomer(int customerId){
-        this.customers.remove(this.customers.get(customerId));
+        Optional<CustomerEntity> byId =customerRepository.findById((long)customerId);
+        if(byId.isPresent()){
+            customerRepository.delete(byId.get());
+        }
+
+        /*
+        this.customerDtos.remove(this.customerDtos.get(customerId));
+
+         */
     }
 
-    public void updateCustomer(int customerId, Customer customer){
-        this.customers.get(customerId).setId(customer.getId());
-        this.customers.get(customerId).setFirstName(customer.getFirstName());
-        this.customers.get(customerId).setLastName(customer.getLastName());
-        this.customers.get(customerId).setEmail(customer.getEmail());
+    @Transactional
+    public void updateCustomer(int customerId, CustomerDto customerDto){
+        Optional<CustomerEntity> byId = customerRepository.findById((long)customerId);
+        if(byId.isPresent()){
+            byId.get().setFirstName(customerDto.getFirstName());
+            byId.get().setLastName(customerDto.getLastName());
+            byId.get().setEmail(customerDto.getEmail());
+        }
+
+        /*
+        this.customerDtos.get(customerId).setId(customerDto.getId());
+        this.customerDtos.get(customerId).setFirstName(customerDto.getFirstName());
+        this.customerDtos.get(customerId).setLastName(customerDto.getLastName());
+        this.customerDtos.get(customerId).setEmail(customerDto.getEmail());
+
+         */
     }
 
-    public Customer getCustomer(int customerId){
-        return this.customers.get(customerId);
+    @Transactional
+    public CustomerDto getCustomer(int customerId){
+        Optional<CustomerEntity> byId = customerRepository.findById((long) customerId);
+        if (byId.isPresent()){
+            return mapToCustomerDto(byId.get());
+        }
+        return null;
+        /*
+        return this.customerDtos.get(customerId);
+
+         */
     }
 
-    public Integer createCustomer(Customer customer){
-        this.customers.add(customer);
-        this.customers.get(customers.size()-1).setId((long) (customers.size() - 1));
-        return this.customers.size()-1;
+    @Transactional
+    public Long createCustomer(CustomerDto customerDto){
+        CustomerEntity customerEntity = new CustomerEntity();
+
+        customerEntity.setFirstName(customerDto.getFirstName());
+        customerEntity.setLastName(customerDto.getLastName());
+        customerEntity.setEmail(customerDto.getEmail());
+
+        this.customerRepository.save(customerEntity);
+        return customerEntity.getId();
+
+        /*
+        this.customerDtos.add(customerDto);
+        this.customerDtos.get(customerDtos.size()-1).setId((long) (customerDtos.size() - 1));
+        return this.customerDtos.size()-1;
+
+         */
     }
 
 
