@@ -11,8 +11,8 @@ public class BorrowingsController {
     private List<Borrowing> borrowings;
 
     private BorrowingService borrowingService;
-    CustomerService customerService;
-    BookService bookService;
+    private CustomerService customerService ;
+    private BookService bookService;
 
     public BorrowingsController(BorrowingService borrowingService) {
         this.borrowingService = borrowingService;

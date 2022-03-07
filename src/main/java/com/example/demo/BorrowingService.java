@@ -10,8 +10,8 @@ import java.util.List;
 public class BorrowingService {
 
     private List<Borrowing> borrowings;
-    CustomerService customerService;
-    BookService bookService;
+    private CustomerService customerService;
+    private BookService bookService;
 
 
     public BorrowingService() {
