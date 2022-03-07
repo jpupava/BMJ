@@ -1,64 +1,46 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 public class BookController {
-
-    private List<Book> books;
     private BookService bookService;
 
     public BookController(BookService bookService) {
         this.bookService = bookService;
     }
 
-    private List<Book> initBook() {
-        List<Book> books = new ArrayList<>();
-        Book book1 = new Book();
-        book1.setId(0L);
-        book1.setauthorFirstname("Peter");
-        book1.setauthorLastname("Lynch");
-        book1.settitle("One up on Wall Street");
-        book1.setisbn("ISBN12A69C");
-        book1.setcount(10);
-        books.add(book1);
-
-        Book book2 = new Book();
-        book2.setId(1L);
-        book2.setauthorFirstname("Matko");
-        book2.setauthorLastname("Usko");
-        book2.settitle("matko-usko");
-        book2.setisbn("ISBN15A29C");
-        book2.setcount(8);
-        books.add(book2);
-
-        return books;
+    @GetMapping("/api/books")
+    public List<BookDto> getBooks(@RequestParam(required = false) String bookAuthor) {
+        return bookService.getBooks(bookAuthor);
     }
 
     @GetMapping("/api/books/{bookId}")
-    public Book getBook(@PathVariable Integer bookId){
+    public BookDto getBook(@PathVariable Long bookId) {
         return bookService.getBook(bookId);
     }
 
-    @GetMapping("/api/books")
-    public List<Book> getBooks(@RequestParam(required = false) String autorName){
-        return bookService.getBooks(autorName);
-    }
     @PostMapping("/api/books")
-    public Integer addBook(@RequestBody Book book){
-        return bookService.addBook(book);
+    public Long createBook(@RequestBody BookDto bookDto) {
+        return bookService.createBook(bookDto);
     }
 
     @DeleteMapping("/api/books/{bookId}")
-    public void deleteBook(@PathVariable Integer bookId){
+    public void deleteBook(@PathVariable int bookId) {
         bookService.deleteBook(bookId);
     }
 
     @PutMapping("/api/books/{bookId}")
-    public void updateBook(@PathVariable int bookId, @RequestBody Book book){
-        bookService.updateBook(bookId, book);
+    public void updateBook(@PathVariable int bookId, @RequestBody BookDto bookDto) {
+        bookService.updateBook(bookId, bookDto);
     }
 }
