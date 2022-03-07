@@ -19,7 +19,10 @@ public class BookService {
         BookDto bookDto = new BookDto();
 
         bookDto.setAuthorFirstname(bookEntity.getAuthorFirstname());
+        bookDto.setAuthorLastname(bookEntity.getAuthorLastname());
         bookDto.setTitle(bookEntity.getTitle());
+        bookDto.setIsbn(bookEntity.getIsbn());
+        bookDto.setCount(bookEntity.getCount());
 
         return bookDto;
     }
@@ -44,8 +47,11 @@ public class BookService {
     public Long createBook(BookDto bookDto) {
         BookEntity bookEntity = new BookEntity();
 
-        bookEntity.setAuthorFirstname(bookDto.getAuthorFirstname());
-        bookEntity.setTitle(bookDto.getTitle());
+        bookEntity.setAuthorFirstname(bookEntity.getAuthorFirstname());
+        bookEntity.setAuthorLastname(bookEntity.getAuthorLastname());
+        bookEntity.setTitle(bookEntity.getTitle());
+        bookEntity.setIsbn(bookEntity.getIsbn());
+        bookEntity.setCount(bookEntity.getCount());
 
         this.bookRepository.save(bookEntity);
 
@@ -57,7 +63,10 @@ public class BookService {
         Optional<BookEntity> byId = bookRepository.findById((long)bookId);
         if (byId.isPresent()) {
             byId.get().setAuthorFirstname(bookDto.getAuthorFirstname());
+            byId.get().setAuthorLastname(bookDto.getAuthorLastname());
             byId.get().setTitle(bookDto.getTitle());
+            byId.get().setIsbn(bookDto.getIsbn());
+            byId.get().setCount(bookDto.getCount());
         }
     }
 
