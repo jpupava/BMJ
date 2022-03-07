@@ -10,7 +10,7 @@ services:
       - DB_USER=postgres
       - DB_PASS=postgres
       - PG_RUNDIR=/run/postgres
-      - PG_LOGDIR=/var/log/postgres
+      - PG_LOGDIR=/var/log/mostgres
     ports:
       - "5432:5432"
     volumes:
