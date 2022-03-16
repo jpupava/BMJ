@@ -1,23 +1,29 @@
 package com.example.demo;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class BorrowingService {
+public class BorrowingService implements InitializingBean {
 
     private List<Borrowing> borrowings;
+    @Autowired
     private CustomerService customerService;
+    @Autowired
     private BookService bookService;
 
 
-    public BorrowingService() {
+    /*public BorrowingService() {
+        this.borrowings = initBorrowing();
+    }*/
+
+    public void afterPropertiesSet(){
         this.borrowings = initBorrowing();
     }
-
     private List<Borrowing> initBorrowing() {
         List<Borrowing> borrowings = new ArrayList<>();
 
