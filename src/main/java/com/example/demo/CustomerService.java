@@ -2,72 +2,78 @@ package com.example.demo;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import javax.transaction.Transactional;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class CustomerService{
-    private List<Customer> customers;
+public class CustomerService {
+    //private List<Customer> customers;
+    private final CustomerRepository customerRepository;
 
-    public CustomerService(){
-        this.customers = initCustomer();
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
-    private List<Customer> initCustomer() {
-        List<Customer> customers = new ArrayList<>();
-        Customer customer1 = new Customer();
-        customer1.setId(0L);
-        customer1.setFirstName("Janko");
-        customer1.setLastName("Hraško");
-        customer1.setEmail("jankohrasko@gmail.com");
-        customers.add(customer1);
+    private static CustomerDto mapToBookDto(CustomerEntity customerEntity) {
+        CustomerDto customerDto = new CustomerDto();
 
-        Customer customer2 = new Customer();
-        customer2.setId(1L);
-        customer2.setFirstName("Jožko");
-        customer2.setLastName("Mrkvička");
-        customer2.setEmail("jozkomrkvicka@gmail.com");
-        customers.add(customer2);
+        customerDto.setFirstName(customerEntity.getFirstName());
+        customerDto.setLastName(customerEntity.getLastName());
+        customerDto.setEmail(customerEntity.getEmail());
 
-        return customers;
+        return customerDto;
     }
 
-    public List<Customer> getCustomers(String customerName){
-        if(customerName==null){
-            return this.customers;
+    @Transactional
+    public List<CustomerDto> getCustomers(String customerName) {
+        List<CustomerDto> ret = new LinkedList<>();
+        for (CustomerEntity c1 : customerRepository.findAll()) {
+            CustomerDto c2 = mapToBookDto(c1);
+            ret.add(c2);
         }
-        List<Customer> filteredCustomers = new ArrayList<>();
-        for (Customer customer : customers){
-            if (customer.getLastName().equals(customerName)){
-                filteredCustomers.add(customer);
-            }
+        return ret;
+    }
+
+    @Transactional
+    public CustomerDto getCustomer(Long customerId) {
+        Optional<CustomerEntity> byId = customerRepository.findById(customerId);
+        if (byId.isPresent()) {
+            return mapToBookDto(byId.get());
         }
-        return filteredCustomers;
+        return null;
     }
 
-    public void deleteCustomer(int customerId){
-        this.customers.remove(this.customers.get(customerId));
+    @Transactional
+    public Long createCustomer(CustomerDto customerDto) {
+        CustomerEntity customerEntity = new CustomerEntity();
+
+        customerEntity.setFirstName(customerDto.getFirstName());
+        customerEntity.setLastName(customerDto.getLastName());
+        customerEntity.setEmail(customerDto.getEmail());
+
+        this.customerRepository.save(customerEntity);
+
+        return customerEntity.getId();
     }
 
-    public void updateCustomer(int customerId, Customer customer){
-        this.customers.get(customerId).setId(customer.getId());
-        this.customers.get(customerId).setFirstName(customer.getFirstName());
-        this.customers.get(customerId).setLastName(customer.getLastName());
-        this.customers.get(customerId).setEmail(customer.getEmail());
+    @Transactional
+    public void updateCustomer(int customerId, CustomerDto customerDto) {
+        Optional<CustomerEntity> byId = customerRepository.findById((long)customerId);
+        if (byId.isPresent()) {
+            byId.get().setFirstName(customerDto.getFirstName());
+            byId.get().setLastName(customerDto.getLastName());
+            byId.get().setEmail(customerDto.getEmail());
+        }
     }
 
-    public Customer getCustomer(int customerId){
-        return this.customers.get(customerId);
+    @Transactional
+    public void deleteCustomer(int customerId) {
+        Optional<CustomerEntity> byId = customerRepository.findById((long)customerId);
+        if (byId.isPresent()) {
+            customerRepository.delete(byId.get());
+        }
     }
-
-    public Integer createCustomer(Customer customer){
-        this.customers.add(customer);
-        this.customers.get(customers.size()-1).setId((long) (customers.size() - 1));
-        return this.customers.size()-1;
-    }
-
-
-
-
 
 }

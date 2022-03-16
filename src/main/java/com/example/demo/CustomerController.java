@@ -7,7 +7,7 @@ import java.util.List;
 
 @RestController
 public class CustomerController {
-    private List<Customer> customers;
+    private List<CustomerDto> customerDtos;
 
     public CustomerService customerService;
 
@@ -15,38 +15,38 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    private List<Customer> initCustomer() {
-        List<Customer> customers = new ArrayList<>();
-        Customer customer1 = new Customer();
-        customer1.setId(0L);
-        customer1.setFirstName("Janko");
-        customer1.setLastName("Hraško");
-        customer1.setEmail("jankohrasko@gmail.com");
-        customers.add(customer1);
+    private List<CustomerDto> initCustomer() {
+        List<CustomerDto> customerDtos = new ArrayList<>();
+        CustomerDto customerDto1 = new CustomerDto();
+        customerDto1.setId(0L);
+        customerDto1.setFirstName("Janko");
+        customerDto1.setLastName("Hraško");
+        customerDto1.setEmail("jankohrasko@gmail.com");
+        customerDtos.add(customerDto1);
 
-        Customer customer2 = new Customer();
-        customer2.setId(1L);
-        customer2.setFirstName("Jožko");
-        customer2.setLastName("Mrkvička");
-        customer2.setEmail("jozkomrkvicka@gmail.com");
-        customers.add(customer2);
+        CustomerDto customerDto2 = new CustomerDto();
+        customerDto2.setId(1L);
+        customerDto2.setFirstName("Jožko");
+        customerDto2.setLastName("Mrkvička");
+        customerDto2.setEmail("jozkomrkvicka@gmail.com");
+        customerDtos.add(customerDto2);
 
-        return customers;
+        return customerDtos;
     }
 
     @GetMapping("/api/customers/{customerId}")
-    public Customer getCustomer(@PathVariable Integer customerId){
+    public CustomerDto getCustomer(@PathVariable Long customerId){
         return customerService.getCustomer(customerId);
     }
 
     @GetMapping("/api/customers")
-    public List<Customer> getCustomers(@RequestParam(required = false) String customerName){
+    public List<CustomerDto> getCustomers(@RequestParam(required = false) String customerName){
         return customerService.getCustomers(customerName);
     }
 
     @PostMapping("/api/customers")
-    public Integer createCustomer(@RequestBody Customer customer){
-        return customerService.createCustomer(customer);
+    public Long createCustomer(@RequestBody CustomerDto customerDto){
+        return customerService.createCustomer(customerDto);
     }
 
     @DeleteMapping("/api/customers/{customerId}")
@@ -55,7 +55,7 @@ public class CustomerController {
     }
 
     @PutMapping("/api/customers/{customerId}")
-    public void updateCustomer(@PathVariable int customerId, @RequestBody Customer customer){
-        customerService.updateCustomer(customerId, customer);
+    public void updateCustomer(@PathVariable int customerId, @RequestBody CustomerDto customerDto){
+        customerService.updateCustomer(customerId, customerDto);
     }
 }
