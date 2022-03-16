@@ -9,7 +9,6 @@ import java.util.Optional;
 
 @Service
 public class CustomerService {
-    //private List<Customer> customers;
     private final CustomerRepository customerRepository;
 
     public CustomerService(CustomerRepository customerRepository) {

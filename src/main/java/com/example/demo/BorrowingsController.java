@@ -8,7 +8,7 @@ import java.util.List;
 @RestController
 public class BorrowingsController {
 
-    private List<Borrowing> borrowings;
+    private List<BorrowingDto> borrowingDtos;
 
     private BorrowingService borrowingService;
     private CustomerService customerService ;
@@ -18,53 +18,38 @@ public class BorrowingsController {
         this.borrowingService = borrowingService;
     }
 
-    private List<Borrowing> initBorrowing() {
-        List<Borrowing> borrowings = new ArrayList<>();
+    private List<BorrowingDto> initBorrowing() {
+        List<BorrowingDto> borrowingDtos = new ArrayList<>();
 
-        Borrowing borrowing1 = new Borrowing();
-        borrowing1.setBorrowingId(0);
-        borrowing1.setBorrower(customerService.getCustomer(0));
-        borrowing1.setBorrowedBook(bookService.getBook(0));
+        BorrowingDto borrowingDto1 = new BorrowingDto();
+        borrowingDto1.setBorrowingId(0);
+        borrowingDto1.setBorrower(customerService.getCustomer(0L));
+        borrowingDto1.setBorrowedBook(bookService.getBook(0L));
+        borrowingDtos.add(borrowingDto1);
 
-        /*
-        borrowing1.setCustomerId(5);
-        borrowing1.setCustomerName("Janko Mrkvicka");
-        borrowing1.setBookId(3);
-        borrowing1.setTitle("Hobbit");
-        borrowing1.setAuthorName("J. R. R. Tolkien");
-         */
-        borrowings.add(borrowing1);
+        BorrowingDto borrowingDto2 = new BorrowingDto();
+        borrowingDto2.setBorrowingId(1);
+        borrowingDto2.setBorrower(customerService.getCustomer(1L));
+        borrowingDto2.setBorrowedBook(bookService.getBook(1L));
+        borrowingDtos.add(borrowingDto2);
 
-        Borrowing borrowing2 = new Borrowing();
-        borrowing2.setBorrowingId(1);
-        borrowing2.setBorrower(customerService.getCustomer(1));
-        borrowing2.setBorrowedBook(bookService.getBook(1));
-        /*
-        borrowing2.setCustomerId(14);
-        borrowing2.setCustomerName("Karol Bezdeda");
-        borrowing2.setBookId(12);
-        borrowing2.setTitle("O ciernej diere");
-        borrowing2.setAuthorName("Steven Hawking");
-         */
-        borrowings.add(borrowing2);
-
-        return borrowings;
+        return borrowingDtos;
     }
 
     @GetMapping("/api/borrowings/{borrowingId}")
-    public Borrowing getBorrowing(@PathVariable Integer borrowingId){
+    public BorrowingDto getBorrowing(@PathVariable long borrowingId){
         return borrowingService.getBorrowing(borrowingId);
     }
 
     @GetMapping("/api/borrowings")
-    public List<Borrowing> getBorrowings(@RequestParam(required = false) Customer borrower){
+    public List<BorrowingDto> getBorrowings(@RequestParam(required = false) CustomerDto borrower){
         return borrowingService.getBorrowings(borrower);
 
     }
 
     @PostMapping("/api/borrowings")
-    public Integer createBorrowing(@RequestBody Borrowing borrowing){
-        return borrowingService.createBorrowing(borrowing);
+    public long createBorrowing(@RequestBody BorrowingDto borrowingDto){
+        return borrowingService.createBorrowing(borrowingDto);
     }
 
     @DeleteMapping("/api/borrowings/{borrowingId}")
@@ -73,8 +58,8 @@ public class BorrowingsController {
     }
 
     @PutMapping("/api/borrowings/{borrowingId}")
-    public void updateBorrowing(@PathVariable int borrowingId, @RequestBody Borrowing borrowing) {
-        borrowingService.updateBorrowing(borrowingId, borrowing);
+    public void updateBorrowing(@PathVariable int borrowingId, @RequestBody BorrowingDto borrowingDto) {
+        borrowingService.updateBorrowing(borrowingId, borrowingDto);
     }
 
 }
