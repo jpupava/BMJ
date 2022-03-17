@@ -33,8 +33,8 @@ public class BorrowingService /*implements InitializingBean*/ {
         BorrowingDto borrowingDto = new BorrowingDto();
 
         //borrowingDto.setBorrowingId(borrowingEntity.getBorrowingId());
-        borrowingDto.setBorrower(borrowingEntity.getBorrower());
-        borrowingDto.setBorrowedBook(borrowingEntity.getBorrowedBook());
+        borrowingDto.setBorrower( borrowingEntity.getBorrower());
+        borrowingDto.setBorrowedBook((BookDto) borrowingEntity.getBorrowedBook());
 
         return borrowingDto;
     }
@@ -63,8 +63,8 @@ public class BorrowingService /*implements InitializingBean*/ {
         BorrowingEntity borrowingEntity = new BorrowingEntity();
 
         //borrowingEntity.setBorrowingId(borrowingDto.getBorrowingId());
-        borrowingEntity.setBorrower(borrowingDto.getBorrower());
-        borrowingEntity.setBorrowedBook(borrowingDto.getBorrowedBook());
+        borrowingEntity.setBorrower((CustomerEntity) borrowingDto.getBorrower());
+        borrowingEntity.setBorrowedBook( borrowingDto.getBorrowedBook());
 
         this.borrowingRepository.save(borrowingEntity);
 
@@ -76,7 +76,7 @@ public class BorrowingService /*implements InitializingBean*/ {
         Optional<BorrowingEntity> byId = borrowingRepository.findById(borrowingId);
         if (byId.isPresent()) {
             //byId.get().setBorrowingId(borrowingDto.getBorrowingId());
-            byId.get().setBorrower(borrowingDto.getBorrower());
+            byId.get().setBorrower((CustomerEntity) borrowingDto.getBorrower());
             byId.get().setBorrowedBook(borrowingDto.getBorrowedBook());
         }
     }

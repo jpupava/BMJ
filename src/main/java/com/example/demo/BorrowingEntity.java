@@ -10,11 +10,11 @@ public class BorrowingEntity {
 
     @JoinColumn
     @ManyToOne
-    private CustomerDto borrower;
+    private CustomerEntity borrower;
 
     @JoinColumn
     @ManyToOne
-    private BookDto borrowedBook;
+    private BookEntity borrowedBook;
 
     public void setBorrowingId(long borrowingId) {
         this.borrowingId = borrowingId;
@@ -23,15 +23,14 @@ public class BorrowingEntity {
         return borrowingId;
     }
 
-    public void setBorrower(CustomerDto borrower){this.borrower = borrower;}
-    public CustomerDto getBorrower(){
+    public void setBorrower(CustomerEntity borrower){this.borrower = borrower;}
+    public CustomerEntity getBorrower(){
         return borrower;
     }
-    public void setBorrowedBook(BookDto book){
+    public void setBorrowedBook(BookEntity book){
         this.borrowedBook = book;
     }
-    public BookDto getBorrowedBook(){
+    public BookEntity getBorrowedBook(){
         return borrowedBook;
     }
-
 }

@@ -1,6 +1,6 @@
 package com.example.demo;
 
-public class CustomerDto {
+public class CustomerDto{
     private Long id;
     private String firstName;
     private String lastName;

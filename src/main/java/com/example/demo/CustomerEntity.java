@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class CustomerEntity {
+public class CustomerEntity extends CustomerDto {
     @Id
     @GeneratedValue
     private Long id;
