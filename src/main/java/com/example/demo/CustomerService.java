@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Service
 public class CustomerService {
-    private final CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
     public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
@@ -52,7 +52,7 @@ public class CustomerService {
         customerEntity.setLastName(customerDto.getLastName());
         customerEntity.setEmail(customerDto.getEmail());
 
-        this.customerRepository.save(customerEntity);
+        customerRepository.save(customerEntity);
 
         return customerEntity.getId();
     }
