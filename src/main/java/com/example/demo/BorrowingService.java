@@ -32,15 +32,15 @@ public class BorrowingService /*implements InitializingBean*/ {
     private static BorrowingDto mapToBookDto(BorrowingEntity borrowingEntity) {
         BorrowingDto borrowingDto = new BorrowingDto();
 
-        //borrowingDto.setBorrowingId(borrowingEntity.getBorrowingId());
-        borrowingDto.setBorrower( borrowingEntity.getBorrower());
-        borrowingDto.setBorrowedBook((BookDto) borrowingEntity.getBorrowedBook());
+        borrowingDto.setBorrowingId(borrowingEntity.getBorrowingId());
+        borrowingDto.setCustomerId(borrowingEntity.getCustomerId());
+        borrowingDto.setBookId(borrowingEntity.getBookId());
 
         return borrowingDto;
     }
 
     @Transactional
-    public BorrowingDto getBorrowing(long borrowingId) {
+    public BorrowingDto getBorrowing(Long borrowingId) {
         Optional<BorrowingEntity> byId = borrowingRepository.findById(borrowingId);
         if (byId.isPresent()) {
             return mapToBookDto(byId.get());
@@ -49,7 +49,7 @@ public class BorrowingService /*implements InitializingBean*/ {
     }
 
     @Transactional
-    public List<BorrowingDto> getBorrowings(CustomerDto borrower) {
+    public List<BorrowingDto> getBorrowings(Long borrowerId) {
         List<BorrowingDto> ret = new LinkedList<>();
         for (BorrowingEntity c1 : borrowingRepository.findAll()) {
             BorrowingDto c2 = mapToBookDto(c1);
@@ -62,9 +62,14 @@ public class BorrowingService /*implements InitializingBean*/ {
     public Long createBorrowing(BorrowingDto borrowingDto) {
         BorrowingEntity borrowingEntity = new BorrowingEntity();
 
-        //borrowingEntity.setBorrowingId(borrowingDto.getBorrowingId());
-        borrowingEntity.setBorrower((CustomerEntity) borrowingDto.getBorrower());
-        borrowingEntity.setBorrowedBook( borrowingDto.getBorrowedBook());
+        borrowingEntity.setBorrowingId(borrowingDto.getBorrowingId());
+        borrowingEntity.setCustomerId(borrowingDto.getCustomerId());
+        borrowingEntity.setBookId(borrowingDto.getBookId());
+
+        /*CustomerDto c1 = customerService.getCustomer(borrowingEntity.getCustomerId());
+        BookDto b1 = bookService.getBook(borrowingDto.getBookId());
+
+        borrowingEntity.setBorrower(c1);*/
 
         this.borrowingRepository.save(borrowingEntity);
 
@@ -72,12 +77,12 @@ public class BorrowingService /*implements InitializingBean*/ {
     }
 
     @Transactional
-    public void updateBorrowing(long borrowingId, BorrowingDto borrowingDto) {
+    public void updateBorrowing(Long borrowingId, BorrowingDto borrowingDto) {
         Optional<BorrowingEntity> byId = borrowingRepository.findById(borrowingId);
         if (byId.isPresent()) {
-            //byId.get().setBorrowingId(borrowingDto.getBorrowingId());
-            byId.get().setBorrower((CustomerEntity) borrowingDto.getBorrower());
-            byId.get().setBorrowedBook(borrowingDto.getBorrowedBook());
+            byId.get().setBorrowingId(borrowingDto.getBorrowingId());
+            byId.get().setCustomerId(borrowingDto.getCustomerId());
+            byId.get().setBookId(borrowingDto.getBookId());
         }
     }
 
