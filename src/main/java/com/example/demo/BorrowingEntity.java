@@ -25,19 +25,40 @@ public class BorrowingEntity {
     public Long getBorrowingId() {
         return borrowingId;
     }
+/*
+    public void setBorrowingId(Long borrowingId) {
+        this.borrowingId = borrowingId;
+    }
 
-    /*
-    public void setBorrower(CustomerDto borrower){this.borrower = borrower;}
-    public CustomerEntity getBorrower(){
+    public CustomerEntity getBorrower() {
         return borrower;
     }
-    public void setBorrowedBook(BookDto book){
-        this.borrowedBook = book;
+
+    public void setBorrower(CustomerEntity borrower) {
+        this.borrower = borrower;
     }
-    public BookEntity getBorrowedBook(){
+
+    public BookEntity getBorrowedBook() {
         return borrowedBook;
     }
-    */
+
+    public void setBorrowedBook(BookEntity borrowedBook) {
+        this.borrowedBook = borrowedBook;
+    }*/
+
+    /*
+        public void setBorrower(CustomerDto borrower){this.borrower = borrower;}
+        public CustomerEntity getBorrower(){
+            return borrower;
+        }
+        public void setBorrowedBook(BookDto book){
+            this.borrowedBook = book;
+        }
+        public BookEntity getBorrowedBook(){
+            return borrowedBook;
+        }
+        */
+
     public Long getCustomerId(){
         return this.customerId;
     }

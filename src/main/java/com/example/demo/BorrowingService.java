@@ -29,10 +29,10 @@ public class BorrowingService /*implements InitializingBean*/ {
 //        this.borrowingRepository = new BorrowingService();
 //    }
 
-    private static BorrowingDto mapToBookDto(BorrowingEntity borrowingEntity) {
+    private static BorrowingDto mapToBorrowingDto(BorrowingEntity borrowingEntity) {
         BorrowingDto borrowingDto = new BorrowingDto();
 
-        borrowingDto.setBorrowingId(borrowingEntity.getBorrowingId());
+        //borrowingDto.setBorrowingId(borrowingEntity.getBorrowingId());
         borrowingDto.setCustomerId(borrowingEntity.getCustomerId());
         borrowingDto.setBookId(borrowingEntity.getBookId());
 
@@ -43,7 +43,7 @@ public class BorrowingService /*implements InitializingBean*/ {
     public BorrowingDto getBorrowing(Long borrowingId) {
         Optional<BorrowingEntity> byId = borrowingRepository.findById(borrowingId);
         if (byId.isPresent()) {
-            return mapToBookDto(byId.get());
+            return mapToBorrowingDto(byId.get());
         }
         return null;
     }
@@ -52,7 +52,7 @@ public class BorrowingService /*implements InitializingBean*/ {
     public List<BorrowingDto> getBorrowings(Long borrowerId) {
         List<BorrowingDto> ret = new LinkedList<>();
         for (BorrowingEntity c1 : borrowingRepository.findAll()) {
-            BorrowingDto c2 = mapToBookDto(c1);
+            BorrowingDto c2 = mapToBorrowingDto(c1);
             ret.add(c2);
         }
         return ret;
@@ -62,7 +62,7 @@ public class BorrowingService /*implements InitializingBean*/ {
     public Long createBorrowing(BorrowingDto borrowingDto) {
         BorrowingEntity borrowingEntity = new BorrowingEntity();
 
-        borrowingEntity.setBorrowingId(borrowingDto.getBorrowingId());
+        //borrowingEntity.setBorrowingId(borrowingDto.getBorrowingId());
         borrowingEntity.setCustomerId(borrowingDto.getCustomerId());
         borrowingEntity.setBookId(borrowingDto.getBookId());
 
@@ -80,7 +80,7 @@ public class BorrowingService /*implements InitializingBean*/ {
     public void updateBorrowing(Long borrowingId, BorrowingDto borrowingDto) {
         Optional<BorrowingEntity> byId = borrowingRepository.findById(borrowingId);
         if (byId.isPresent()) {
-            byId.get().setBorrowingId(borrowingDto.getBorrowingId());
+            //byId.get().setBorrowingId(borrowingDto.getBorrowingId());
             byId.get().setCustomerId(borrowingDto.getCustomerId());
             byId.get().setBookId(borrowingDto.getBookId());
         }

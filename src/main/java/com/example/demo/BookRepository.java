@@ -7,4 +7,6 @@ import java.util.List;
 
 @Repository
 public interface BookRepository extends CrudRepository<BookEntity, Long>  {
+    @Override
+    List<BookEntity> findAll();
 }
