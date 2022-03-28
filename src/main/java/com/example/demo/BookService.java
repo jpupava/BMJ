@@ -18,6 +18,7 @@ public class BookService {
     private static BookDto mapToBookDto(BookEntity bookEntity) {
         BookDto bookDto = new BookDto();
 
+        bookDto.setId(bookEntity.getId());
         bookDto.setAuthorFirstname(bookEntity.getAuthorFirstname());
         bookDto.setAuthorLastname(bookEntity.getAuthorLastname());
         bookDto.setTitle(bookEntity.getTitle());
