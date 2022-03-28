@@ -18,14 +18,12 @@ public class CustomerController {
     private List<CustomerDto> initCustomer() {
         List<CustomerDto> customerDtos = new ArrayList<>();
         CustomerDto customerDto1 = new CustomerDto();
-        customerDto1.setId(0L);
         customerDto1.setFirstName("Janko");
         customerDto1.setLastName("Hraško");
         customerDto1.setEmail("jankohrasko@gmail.com");
         customerDtos.add(customerDto1);
 
         CustomerDto customerDto2 = new CustomerDto();
-        customerDto2.setId(1L);
         customerDto2.setFirstName("Jožko");
         customerDto2.setLastName("Mrkvička");
         customerDto2.setEmail("jozkomrkvicka@gmail.com");
