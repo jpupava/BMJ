@@ -22,15 +22,26 @@ public class BorrowingsController {
         List<BorrowingDto> borrowingDtos = new ArrayList<>();
 
         BorrowingDto borrowingDto1 = new BorrowingDto();
-        borrowingDto1.setBorrowingId(0);
-        borrowingDto1.setBorrower(customerService.getCustomer(0L));
+        borrowingDto1.setBorrowingId(0L);
+
+        borrowingDto1.setBorrowingId(0L);
+        borrowingDto1.setCustomerId(0L);
+        borrowingDto1.setBookId(0L);
+        /*borrowingDto1.setBorrower(customerService.getCustomer(0L));
         borrowingDto1.setBorrowedBook(bookService.getBook(0L));
+        */
         borrowingDtos.add(borrowingDto1);
 
+
         BorrowingDto borrowingDto2 = new BorrowingDto();
-        borrowingDto2.setBorrowingId(1);
+        borrowingDto2.setBorrowingId(1L);
+
+        borrowingDto2.setCustomerId(1L);
+        borrowingDto2.setBookId(1L);
+        /*
         borrowingDto2.setBorrower(customerService.getCustomer(1L));
         borrowingDto2.setBorrowedBook(bookService.getBook(1L));
+        */
         borrowingDtos.add(borrowingDto2);
 
         return borrowingDtos;
@@ -42,8 +53,8 @@ public class BorrowingsController {
     }
 
     @GetMapping("/api/borrowings")
-    public List<BorrowingDto> getBorrowings(@RequestParam(required = false) CustomerDto borrower){
-        return borrowingService.getBorrowings(borrower);
+    public List<BorrowingDto> getBorrowings(@RequestParam(required = false) Long borrowerId){
+        return borrowingService.getBorrowings(borrowerId);
 
     }
 
@@ -58,7 +69,7 @@ public class BorrowingsController {
     }
 
     @PutMapping("/api/borrowings/{borrowingId}")
-    public void updateBorrowing(@PathVariable int borrowingId, @RequestBody BorrowingDto borrowingDto) {
+    public void updateBorrowing(@PathVariable Long borrowingId, @RequestBody BorrowingDto borrowingDto) {
         borrowingService.updateBorrowing(borrowingId, borrowingDto);
     }
 

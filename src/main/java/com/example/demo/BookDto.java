@@ -1,6 +1,6 @@
 package com.example.demo;
 
-public class BookDto extends BookEntity {
+public class BookDto{
     private Long id;
     private String authorFirstname;
     private String authorLastname;

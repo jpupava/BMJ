@@ -2,17 +2,22 @@ package com.example.demo;
 
 public class BorrowingDto {
 
-    private long borrowingId;
+    private Long borrowingId;
+    /*
     private CustomerDto borrower;
     private BookDto borrowedBook;
+*/
+    private Long customerId;
+    private Long bookId;
 
-    public void setBorrowingId(int borrowingId) {
+    public void setBorrowingId(Long borrowingId) {
         this.borrowingId = borrowingId;
     }
     public long getBorrowingId() {
         return borrowingId;
     }
-    public void setBorrower(CustomerDto borrower){this.borrower = borrower;}
+
+    /*public void setBorrower(String[] borrower){this.borrower = borrower;}
     public CustomerDto getBorrower(){
         return borrower;
     }
@@ -22,5 +27,18 @@ public class BorrowingDto {
     public BookDto getBorrowedBook(){
         return borrowedBook;
     }
+    */
+    public void setCustomerId(Long customerId){
+        this.customerId = customerId;
+    }
+    public Long getCustomerId(){
+        return this.customerId;
+    }
 
+    public void setBookId(Long bookId){
+        this.bookId = bookId;
+    }
+    public Long getBookId() {
+        return this.bookId;
+    }
 }
