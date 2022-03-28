@@ -15,9 +15,10 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    private static CustomerDto mapToBookDto(CustomerEntity customerEntity) {
+    private static CustomerDto mapToCustomerDto(CustomerEntity customerEntity) {
         CustomerDto customerDto = new CustomerDto();
 
+        customerDto.setId(customerEntity.getId());
         customerDto.setFirstName(customerEntity.getFirstName());
         customerDto.setLastName(customerEntity.getLastName());
         customerDto.setEmail(customerEntity.getEmail());
@@ -29,7 +30,7 @@ public class CustomerService {
     public List<CustomerDto> getCustomers(String customerName) {
         List<CustomerDto> ret = new LinkedList<>();
         for (CustomerEntity c1 : customerRepository.findAll()) {
-            CustomerDto c2 = mapToBookDto(c1);
+            CustomerDto c2 = mapToCustomerDto(c1);
             ret.add(c2);
         }
         return ret;
@@ -39,7 +40,7 @@ public class CustomerService {
     public CustomerDto getCustomer(Long customerId) {
         Optional<CustomerEntity> byId = customerRepository.findById(customerId);
         if (byId.isPresent()) {
-            return mapToBookDto(byId.get());
+            return mapToCustomerDto(byId.get());
         }
         return null;
     }
