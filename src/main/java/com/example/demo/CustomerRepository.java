@@ -9,5 +9,4 @@ import java.util.List;
 public interface CustomerRepository extends CrudRepository<CustomerEntity, Long> {
     @Override
     List<CustomerEntity> findAll();
-
 }

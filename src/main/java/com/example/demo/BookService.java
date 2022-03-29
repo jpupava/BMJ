@@ -18,6 +18,7 @@ public class BookService {
     private static BookDto mapToBookDto(BookEntity bookEntity) {
         BookDto bookDto = new BookDto();
 
+        bookDto.setId(bookEntity.getId());
         bookDto.setAuthorFirstname(bookEntity.getAuthorFirstname());
         bookDto.setAuthorLastname(bookEntity.getAuthorLastname());
         bookDto.setTitle(bookEntity.getTitle());
@@ -40,18 +41,21 @@ public class BookService {
     @Transactional
     public BookDto getBook(Long bookId) {
         Optional<BookEntity> byId = bookRepository.findById(bookId);
-        return byId.map(BookService::mapToBookDto).orElse(null);
+        if (byId.isPresent()) {
+            return mapToBookDto(byId.get());
+        }
+        return null;
     }
 
     @Transactional
     public Long createBook(BookDto bookDto) {
         BookEntity bookEntity = new BookEntity();
 
-        bookEntity.setAuthorFirstname(bookEntity.getAuthorFirstname());
-        bookEntity.setAuthorLastname(bookEntity.getAuthorLastname());
-        bookEntity.setTitle(bookEntity.getTitle());
-        bookEntity.setIsbn(bookEntity.getIsbn());
-        bookEntity.setCount(bookEntity.getCount());
+        bookEntity.setAuthorFirstname(bookDto.getAuthorFirstname());
+        bookEntity.setAuthorLastname(bookDto.getAuthorLastname());
+        bookEntity.setTitle(bookDto.getTitle());
+        bookEntity.setIsbn(bookDto.getIsbn());
+        bookEntity.setCount(bookDto.getCount());
 
         this.bookRepository.save(bookEntity);
 
@@ -73,7 +77,9 @@ public class BookService {
     @Transactional
     public void deleteBook(int bookId) {
         Optional<BookEntity> byId = bookRepository.findById((long)bookId);
-        byId.ifPresent(bookRepository::delete);
+        if (byId.isPresent()) {
+            bookRepository.delete(byId.get());
+        }
     }
 
 }

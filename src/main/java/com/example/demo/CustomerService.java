@@ -18,6 +18,7 @@ public class CustomerService {
     private static CustomerDto mapToCustomerDto(CustomerEntity customerEntity) {
         CustomerDto customerDto = new CustomerDto();
 
+        customerDto.setId(customerEntity.getId());
         customerDto.setFirstName(customerEntity.getFirstName());
         customerDto.setLastName(customerEntity.getLastName());
         customerDto.setEmail(customerEntity.getEmail());
