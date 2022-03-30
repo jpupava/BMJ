@@ -48,7 +48,7 @@ public class BorrowingsController {
     }
 
     @GetMapping("/api/borrowings/{borrowingId}")
-    public BorrowingDto getBorrowing(@PathVariable long borrowingId){
+    public BorrowingDto getBorrowing(@PathVariable Long borrowingId){
         return borrowingService.getBorrowing(borrowingId);
     }
 
@@ -59,7 +59,7 @@ public class BorrowingsController {
     }
 
     @PostMapping("/api/borrowings")
-    public long createBorrowing(@RequestBody BorrowingDto borrowingDto){
+    public Long createBorrowing(@RequestBody BorrowingDto borrowingDto){
         return borrowingService.createBorrowing(borrowingDto);
     }
 

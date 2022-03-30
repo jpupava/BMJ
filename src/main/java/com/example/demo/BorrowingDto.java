@@ -3,10 +3,6 @@ package com.example.demo;
 public class BorrowingDto {
 
     private Long borrowingId;
-    /*
-    private CustomerDto borrower;
-    private BookDto borrowedBook;
-*/
     private Long customerId;
     private Long bookId;
 
@@ -17,17 +13,6 @@ public class BorrowingDto {
         return borrowingId;
     }
 
-    /*public void setBorrower(String[] borrower){this.borrower = borrower;}
-    public CustomerDto getBorrower(){
-        return borrower;
-    }
-    public void setBorrowedBook(BookDto book){
-        this.borrowedBook = book;
-    }
-    public BookDto getBorrowedBook(){
-        return borrowedBook;
-    }
-    */
     public void setCustomerId(Long customerId){
         this.customerId = customerId;
     }
@@ -41,4 +26,23 @@ public class BorrowingDto {
     public Long getBookId() {
         return this.bookId;
     }
+
+    /*
+    private CustomerDto borrower;
+    private BookDto borrowedBook;
+*/
+
+
+    /*public void setBorrower(String[] borrower){this.borrower = borrower;}
+    public CustomerDto getBorrower(){
+        return borrower;
+    }
+    public void setBorrowedBook(BookDto book){
+        this.borrowedBook = book;
+    }
+    public BookDto getBorrowedBook(){
+        return borrowedBook;
+    }
+    */
+
 }

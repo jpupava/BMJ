@@ -7,7 +7,7 @@ public class BorrowingEntity {
     @Id
     @GeneratedValue
     private Long borrowingId;
-/*
+
     @JoinColumn(name = "customerId")
     @ManyToOne(fetch = FetchType.LAZY)
     private CustomerEntity borrower;
@@ -15,9 +15,6 @@ public class BorrowingEntity {
     @JoinColumn(name = "bookId")
     @ManyToOne(fetch = FetchType.LAZY)
     private BookEntity borrowedBook;
-*/
-    private Long customerId;
-    private Long bookId;
 
     public void setBorrowingId(long borrowingId) {
         this.borrowingId = borrowingId;
@@ -25,11 +22,30 @@ public class BorrowingEntity {
     public Long getBorrowingId() {
         return borrowingId;
     }
-/*
+
     public void setBorrowingId(Long borrowingId) {
         this.borrowingId = borrowingId;
     }
+    public void setBorrower(CustomerEntity borrower){this.borrower = borrower;}
+    public CustomerEntity getBorrower(){
+        return borrower;
+    }
 
+    public void setBorrowedBook(BookEntity book){
+        this.borrowedBook = book;
+    }
+
+    public BookEntity getBorrowedBook(){
+        return borrowedBook;
+    }
+/*
+    private Long customerId;
+
+    private Long bookId;
+*/
+
+
+/*
     public CustomerEntity getBorrower() {
         return borrower;
     }
@@ -44,21 +60,12 @@ public class BorrowingEntity {
 
     public void setBorrowedBook(BookEntity borrowedBook) {
         this.borrowedBook = borrowedBook;
-    }*/
+    }
+*/
 
-    /*
-        public void setBorrower(CustomerDto borrower){this.borrower = borrower;}
-        public CustomerEntity getBorrower(){
-            return borrower;
-        }
-        public void setBorrowedBook(BookDto book){
-            this.borrowedBook = book;
-        }
-        public BookEntity getBorrowedBook(){
-            return borrowedBook;
-        }
-        */
 
+
+/*
     public Long getCustomerId(){
         return this.customerId;
     }
@@ -70,6 +77,6 @@ public class BorrowingEntity {
     }
     public Long getBookId() {
         return this.bookId;
-    }
+    }*/
 
 }
