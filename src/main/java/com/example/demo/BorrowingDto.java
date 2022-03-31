@@ -27,13 +27,13 @@ public class BorrowingDto {
         return this.bookId;
     }
 
-    /*
+
+/*
     private CustomerDto borrower;
     private BookDto borrowedBook;
-*/
 
 
-    /*public void setBorrower(String[] borrower){this.borrower = borrower;}
+    public void setBorrower(CustomerDto borrower){this.borrower = borrower;}
     public CustomerDto getBorrower(){
         return borrower;
     }
@@ -43,6 +43,6 @@ public class BorrowingDto {
     public BookDto getBorrowedBook(){
         return borrowedBook;
     }
-    */
+*/
 
 }

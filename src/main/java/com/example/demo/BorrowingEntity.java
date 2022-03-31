@@ -38,9 +38,10 @@ public class BorrowingEntity {
     public BookEntity getBorrowedBook(){
         return borrowedBook;
     }
+
+
 /*
     private Long customerId;
-
     private Long bookId;
 */
 
@@ -62,8 +63,6 @@ public class BorrowingEntity {
         this.borrowedBook = borrowedBook;
     }
 */
-
-
 
 /*
     public Long getCustomerId(){

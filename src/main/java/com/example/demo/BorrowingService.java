@@ -39,7 +39,6 @@ public class BorrowingService /*implements InitializingBean*/ {
         BorrowingDto borrowingDto = new BorrowingDto();
 
         borrowingDto.setBorrowingId(borrowingEntity.getBorrowingId());
-
         borrowingDto.setCustomerId(borrowingEntity.getBorrower().getId());
         borrowingDto.setBookId(borrowingEntity.getBorrowedBook().getId());
 
@@ -69,10 +68,6 @@ public class BorrowingService /*implements InitializingBean*/ {
     public Long createBorrowing(BorrowingDto borrowingDto) {
         BorrowingEntity borrowingEntity = new BorrowingEntity();
 
-        //borrowingEntity.setBorrowingId(borrowingDto.getBorrowingId());
-        //borrowingEntity.setCustomerId(borrowingDto.getCustomerId());
-        //borrowingEntity.setBookId(borrowingDto.getBookId());
-
         Optional <CustomerEntity> c = customerRepository.findById(borrowingDto.getCustomerId());
         Optional <BookEntity> b = bookRepository.findById(borrowingDto.getBookId());
 
@@ -83,12 +78,6 @@ public class BorrowingService /*implements InitializingBean*/ {
             borrowingEntity.setBorrowedBook(b.get());
         }
 
-
-        /*CustomerDto c1 = customerService.getCustomer(borrowingEntity.getCustomerId());
-        BookDto b1 = bookService.getBook(borrowingDto.getBookId());
-
-        borrowingEntity.setBorrower(c1);*/
-
         this.borrowingRepository.save(borrowingEntity);
 
         return borrowingEntity.getBorrowingId();
@@ -96,12 +85,19 @@ public class BorrowingService /*implements InitializingBean*/ {
 
     @Transactional
     public void updateBorrowing(Long borrowingId, BorrowingDto borrowingDto) {
-        Optional<BorrowingEntity> byId = borrowingRepository.findById(borrowingId);
-        if (byId.isPresent()) {
+        Optional<BorrowingEntity> borrowingEntity = borrowingRepository.findById(borrowingId);
 
-            //byId.get().setBorrowingId(borrowingDto.getBorrowingId());
-            //byId.get().setCustomerId(borrowingDto.getCustomerId());
-            //byId.get().setBookId(borrowingDto.getBookId());
+        if (borrowingEntity.isPresent()) {
+
+            Optional<CustomerEntity> c = customerRepository.findById(borrowingDto.getCustomerId());
+            Optional<BookEntity> b = bookRepository.findById(borrowingDto.getBookId());
+
+            if(c.isPresent()) {
+                borrowingEntity.get().setBorrower(c.get());
+            }
+            if(b.isPresent()) {
+                borrowingEntity.get().setBorrowedBook(b.get());
+            }
         }
     }
 

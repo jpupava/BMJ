@@ -27,9 +27,9 @@ public class BorrowingsController {
         borrowingDto1.setBorrowingId(0L);
         borrowingDto1.setCustomerId(0L);
         borrowingDto1.setBookId(0L);
-        /*borrowingDto1.setBorrower(customerService.getCustomer(0L));
-        borrowingDto1.setBorrowedBook(bookService.getBook(0L));
-        */
+//        borrowingDto1.setBorrower(customerService.getCustomer(0L));
+//        borrowingDto1.setBorrowedBook(bookService.getBook(0L));
+
         borrowingDtos.add(borrowingDto1);
 
 
@@ -38,10 +38,9 @@ public class BorrowingsController {
 
         borrowingDto2.setCustomerId(1L);
         borrowingDto2.setBookId(1L);
-        /*
-        borrowingDto2.setBorrower(customerService.getCustomer(1L));
-        borrowingDto2.setBorrowedBook(bookService.getBook(1L));
-        */
+//        borrowingDto2.setBorrower(customerService.getCustomer(1L));
+//        borrowingDto2.setBorrowedBook(bookService.getBook(1L));
+
         borrowingDtos.add(borrowingDto2);
 
         return borrowingDtos;
