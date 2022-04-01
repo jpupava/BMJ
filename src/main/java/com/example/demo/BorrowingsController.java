@@ -52,9 +52,8 @@ public class BorrowingsController {
     }
 
     @GetMapping("/api/borrowings")
-    public List<BorrowingDto> getBorrowings(@RequestParam(required = false) Long borrowerId){
-        return borrowingService.getBorrowings(borrowerId);
-
+    public List<BorrowingDto> getBorrowings(@RequestParam(required = false) Long borrowingId){
+        return borrowingService.getBorrowings(borrowingId);
     }
 
     @PostMapping("/api/borrowings")

@@ -55,13 +55,13 @@ public class BorrowingService /*implements InitializingBean*/ {
     }
 
     @Transactional
-    public List<BorrowingDto> getBorrowings(Long borrowerId) {
-        List<BorrowingDto> ret = new LinkedList<>();
-        for (BorrowingEntity c1 : borrowingRepository.findAll()) {
-            BorrowingDto c2 = mapToBorrowingDto(c1);
-            ret.add(c2);
+    public List<BorrowingDto> getBorrowings(Long borrowingId) {
+        List<BorrowingDto> ls = new LinkedList<>();
+        for (BorrowingEntity be1 : borrowingRepository.findAll()) {
+            BorrowingDto be2 = mapToBorrowingDto(be1);
+            ls.add(be2);
         }
-        return ret;
+        return ls;
     }
 
     @Transactional
